@@ -4,6 +4,8 @@ import java.io.Serializable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Column;
@@ -15,9 +17,16 @@ public class Student implements Serializable{
     
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id; 
-    @Column(nullable = false)
+    private long id; 
+    
+    // Creates a column named user_id in the students table.
+    // It is a foreign key that stores the id of the User (row in users)
+    // this student belongs to. unique = true means one User can have
+    // at most one Student profile.
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
+
     @Column(nullable = false)
     private String program; 
 
