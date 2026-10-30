@@ -1,0 +1,45 @@
+package com.example.demo.model;
+
+import java.io.Serializable;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Column;
+
+@Entity
+@Table(name="student")
+public class Student implements Serializable{
+    private static final long serialVersionUID = 1L; 
+    
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id; 
+    
+    // Creates a column named user_id in the students table.
+    // It is a foreign key that stores the id of the User (row in users)
+    // this student belongs to. unique = true means one User can have
+    // at most one Student profile.
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    private User user;
+
+    @Column(nullable = false)
+    private String program; 
+
+    public Student (){}
+
+    public Student (User user, String program){
+        this.user = user; 
+        this.program = program; 
+    }
+
+    public void setUser(User user){this.user = user; }
+    public User getUser(){return user;}
+
+    public void setProgram(String program){this.program = program;}
+    public String getProgram(){return program;}
+}
