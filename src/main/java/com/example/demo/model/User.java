@@ -1,21 +1,28 @@
+package com.example.demo.model;
+import java.time.LocalDateTime;
 import java.io.Serializable;
-
-import jakarta.annotation.Generated;
+import com.example.demo.enums.RoleType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Column;
 
 // This class is used to store a created user account information
 @Entity
 @Table(name="user")
 public class User implements Serializable{
     private static final long serialVersionUID = 1L; 
-
-    @Id
-    @GeneratedValue(strategy=Generated.IDENTITY)
+    
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id; 
 
     @Column(nullable = false)
     private String name; 
 
-    @Column(Unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private String email; 
 
     @Column(name = "password_hash", nullable = false)
@@ -23,7 +30,7 @@ public class User implements Serializable{
     private RoleType role; 
 
     @Column(name = "created_at", nullable = false)
-    private DateTime createdAt;
+    private LocalDateTime createdAt;
 
     public User (){}
 
@@ -31,7 +38,7 @@ public class User implements Serializable{
                 String email, 
                 String passwordHash, 
                 RoleType role, 
-                DateTime createdAt){
+                LocalDateTime createdAt){
         this.name = name; 
         this.email = email; 
         this.passwordHash = passwordHash; 

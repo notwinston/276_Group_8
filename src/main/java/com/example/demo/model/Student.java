@@ -1,13 +1,19 @@
-import java.io.Serializable;
+package com.example.demo.model;
 
-import jakarta.annotation.Generated;
+import java.io.Serializable;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Column;
 
 @Entity
 @Table(name="student")
 public class Student implements Serializable{
     private static final long serialVersionUID = 1L; 
     
-    @Id
+    @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id; 
     @Column(nullable = false)
