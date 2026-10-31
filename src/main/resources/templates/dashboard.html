@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Summit SFU - Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-dark px-4 mb-4">
+    <span class="navbar-brand fw-bold">Summit SFU</span>
+    <div class="d-flex align-items-center gap-2">
+        <a th:if="${user.role.name() == 'ADMIN'}" href="/admin/dashboard" class="btn btn-danger btn-sm">Admin Panel</a>
+        <a href="/logout" class="btn btn-outline-light btn-sm">Logout</a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="card shadow-sm border-0 p-4 mb-4">
+        <h2 class="fw-bold">Welcome, <span th:text="${user.username}">test</span>!</h2>
+        <p class="text-muted mb-1">Email: <strong th:text="${user.email}">test@example.com</strong></p>
+        <p class="text-muted mb-0">Account Role: <span class="badge bg-secondary" th:text="${user.role}">USER</span></p>
+    </div>
+
+    <div class="card shadow-sm border-0 p-4">
+        <h5 class="fw-bold mb-3">Account Settings</h5>
+
+        <div th:if="${success}" class="alert alert-success py-2" th:text="${success}"></div>
+        <div th:if="${error}" class="alert alert-danger py-2" th:text="${error}"></div>
+
+        <form action="/dashboard/update-profile" method="post" class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label fw-semibold">Update Email</label>
+                <input type="email" name="email" class="form-control" th:value="${user.email}" required>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label fw-semibold">New Password (leave blank to keep current)</label>
+                <input type="password" name="newPassword" class="form-control" placeholder="••••••••">
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-dark">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
